@@ -1,0 +1,22 @@
+import re
+import json
+
+def parse_news(news):
+    # Parse news links from JSON response and save to file
+    for link in news['links']:
+        # Extract title, href and body of each link
+        title = re.search('>(.*?)<', link).group(1)
+        href = re.search('(https?://[^"]+)', link).group(0)
+        body = re.search('body="(.*?)"', href).group(1)
+
+        # Save to file
+        with open(f'news/{title}.txt', 'w', encoding='utf-8') as f:
+            f.write(body)
+    return True
+
+def main():
+    response = requests.get('https://jsonplaceholder.typicode.com/posts/1').json()
+    if parse_news(response):
+        print("News saved to files successfully!")
+else:
+    print("Failed to save news to file.")
