@@ -10,8 +10,8 @@ openai_api_key = st.text_input("OpenAI API Key", type="password")
 
 if openai_api_key:
     assistant = Agent(
-        # model=OpenAIChat(id="gpt-4o", api_key=openai_api_key),
-        model=OpenAIChat(id="gpt-4o"),
+        model=OpenAIChat(id="gpt-4o", api_key=openai_api_key),
+        # model=OpenAIChat(id="gpt-4o"),
         tools=[
             YFinanceTools(stock_price=True, analyst_recommendations=True, stock_fundamentals=True)
         ],
