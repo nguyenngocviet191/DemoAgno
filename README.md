@@ -8,9 +8,9 @@
 ## 3. AI agent
 
 ###Repo tham khảo
-*Thư viện
--https://github.com/agno-agi/agno
--https://github.com/camel-ai/camel
+* Thư viện
+- https://github.com/agno-agi/agno
+- https://github.com/camel-ai/camel
 
-*Dự án
--https://github.com/OpenManus
+* Dự án
+- https://github.com/OpenManus
