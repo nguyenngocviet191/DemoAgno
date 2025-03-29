@@ -21,7 +21,7 @@ headers = {
 # Dữ liệu gửi đến API
 payload = {
     'inputs': {},  # Thay thế bằng các biến đầu vào nếu cần
-    'query': 'giải thích về crypto',
+    'query': 'trứng có trước hay gà có trước',
     'response_mode': "streaming",  # Hoặc 'streaming' nếu bạn muốn nhận kết quả theo luồng
     'conversation_id': '',  # Để trống khi bắt đầu cuộc trò chuyện mới
     'user': 'shin-test'  # Thay thế bằng ID người dùng của bạn
@@ -40,11 +40,30 @@ for line in response.iter_lines():
         if line.startswith("data: "):
             json_data = json.loads(line.replace("data: ", ""))
             
-            # Lấy dữ liệu từ "agent_message" hoặc "agent_thought"
-            if json_data.get("event") in ["agent_message", "agent_thought"]:
-                if "answer" in json_data:
-                    full_answer += json_data["answer"]  # Ghép câu trả lời
-                if "thought" in json_data:
-                    full_thought += json_data["thought"]  # Ghép suy nghĩ (nếu có)
-print("\n🔹 Bot Thought", full_thought)
-print("\n🔹 Bot Answer:", full_answer)  # In toàn bộ câu trả lời đầy đủ
+            # Hiển thị Thought ngay khi nhận được
+            if json_data.get("event") == "agent_thought":
+                thought_text = json_data.get("thought", "")
+                if thought_text != full_answer:
+                    # Nếu Thought không trùng với Answer thì hiển thị
+                    if thought_text:
+                        if full_thought == "":
+                            print("\n🔹 Bot Thought:", end="", flush=True)
+                        full_thought += thought_text
+                        print(full_thought, end="", flush=True)  
+            # Ghép Answer từng phần và hiển thị ngay
+            if json_data.get("event") == "agent_message":
+                answer_text = json_data.get("answer", "")
+                
+                if answer_text:
+                    if full_answer == "":
+                        print("\n🔹 Bot Answer:", end="", flush=True)
+                    full_answer += answer_text
+                    print(answer_text, end="", flush=True)  # Hiển thị ngay mà không xuống dòng
+                
+#             if json_data.get("event") in ["agent_message", "agent_thought"]:
+#                 if "answer" in json_data:
+#                     full_answer += json_data["answer"]  # Ghép câu trả lời
+#                 if "thought" in json_data:
+#                     full_thought += json_data["thought"]  # Ghép suy nghĩ (nếu có)
+# print("\n🔹 Bot Thought", full_thought)
+# print("\n🔹 Bot Answer:", full_answer)  # In toàn bộ câu trả lời đầy đủ
