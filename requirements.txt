@@ -1,0 +1,10 @@
+camel-ai
+pillow
+pandas
+streamlit
+openai
+agno
+duckduckgo-search
+yfinance
+fastapi[standard] 
+sqlalchemy
