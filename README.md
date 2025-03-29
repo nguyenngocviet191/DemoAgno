@@ -13,6 +13,7 @@
 - https://github.com/camel-ai/camel
 
 * Dự án
+- https://github.com/Shubhamsaboo/awesome-llm-apps
 - https://github.com/OpenManus
 
 ## 4. Automation
