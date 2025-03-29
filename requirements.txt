@@ -8,3 +8,4 @@ duckduckgo-search
 yfinance
 fastapi[standard] 
 sqlalchemy
+python-dotenv
