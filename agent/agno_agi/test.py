@@ -14,6 +14,7 @@ response = client.responses.create(
     model="gpt-4o",
     instructions="Bạn là hướng dẫn viên du lịch",
     input="Giới thiệu về Hà nội",
+    stream=True,  # Enable streaming
 )
 
 print(response.output_text)
