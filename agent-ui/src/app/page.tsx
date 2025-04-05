@@ -17,7 +17,9 @@ export default function Home() {
     <Suspense fallback={<div>Loading...</div>}>
         {/* Sidebar */}
         <div className="flex flex-row" >
-          <Sidebar />
+          <div  className="border-r border-border">
+            <Sidebar />
+          </div>
           {/* <div className="flex flex-col h-screen bg-background/80"> */}
           <div className="flex flex-col h-screen">
           {/* Header */}
@@ -28,8 +30,10 @@ export default function Home() {
             {/* Main Content */}
            
               {/* Conditional Sessions Component */}
-              <div className="flex flex-col left-2 max-w-[300px]">
-              <AgentList />
+              <div className="flex flex-col left-2 max-w-[300px] border-r border-border">
+              <div className="flex min-h-[300px] max-h-[600px]">
+                <AgentList />
+              </div>
                       {/* {selectedModel && agentId && (
                         <ModelDisplay model={selectedModel} />
                       )} */}
@@ -39,11 +43,15 @@ export default function Home() {
          
               )}
               </div>
-              {/* Chat Area */}
-              <ChatArea />
+                <div className="max-w-[800px] border-r border-border">
+                {/* Chat Area */}
+                <ChatArea />
+              </div>
+              <div>
+                Workscreen
+              </div>
               {/* Chatbot Settings */}
               {isOpen && <ChatbotSettings />}
-            
           </div>
                 </div>
         </div>

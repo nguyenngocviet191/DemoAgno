@@ -23,23 +23,6 @@ const SidebarHeader = () => (
   </div>
 )
 
-const NewChatButton = ({
-  disabled,
-  onClick
-}: {
-  disabled: boolean
-  onClick: () => void
-}) => (
-  <Button
-    onClick={onClick}
-    disabled={disabled}
-    size="lg"
-    className="h-9 w-full rounded-xl bg-primary text-xs font-medium text-background hover:bg-primary/80"
-  >
-    <Icon type="plus-icon" size="xs" className="text-background" />
-    <span className="uppercase">New Chat</span>
-  </Button>
-)
 
 const ModelDisplay = ({ model }: { model: string }) => (
   <div className="flex h-9 w-full items-center gap-3 rounded-xl border border-primary/15 bg-accent p-3 text-xs font-medium uppercase text-muted">
@@ -264,10 +247,7 @@ const Sidebar = () => {
           Toggle to {theme === 'light' ? 'Dark' : 'Light'} Mode
         </button>
 
-        <NewChatButton
-          disabled={messages.length === 0}
-          onClick={handleNewChat}
-        />
+
         <script>console.log('isMounted', isEndpointActive)</script>
         {isMounted && (
           <>
