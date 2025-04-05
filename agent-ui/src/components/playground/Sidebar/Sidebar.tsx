@@ -1,6 +1,7 @@
 'use client'
 import { Button } from '@/components/ui/button'
-import { AgentSelector } from '@/components/playground/Sidebar/AgentSelector'
+// import { AgentSelector } from '@/components/playground/Sidebar/AgentSelector'
+
 import useChatActions from '@/hooks/useChatActions'
 import { usePlaygroundStore } from '@/store'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -267,6 +268,7 @@ const Sidebar = () => {
           disabled={messages.length === 0}
           onClick={handleNewChat}
         />
+        <script>console.log('isMounted', isEndpointActive)</script>
         {isMounted && (
           <>
             <Endpoint />
@@ -292,10 +294,7 @@ const Sidebar = () => {
                     </div>
                   ) : (
                     <>
-                      <AgentSelector />
-                      {selectedModel && agentId && (
-                        <ModelDisplay model={selectedModel} />
-                      )}
+                     
                     </>
                   )}
                 </motion.div>

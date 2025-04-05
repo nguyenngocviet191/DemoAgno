@@ -5,6 +5,7 @@ import os
 load_dotenv()
 api_key = os.getenv("OPENAI_API_KEY")  # Dùng os.getenv() tránh lỗi KeyError
 os.environ["OPENAI_API_KEY"] = api_key
+print(os.getenv("OPENAI_API_KEY"))
 agent = Agent(
     model=OpenAIChat(id="gpt-4o-mini"),
     description="Bạn là chuyên gia tài chính có nhiều kinh nghiệm thương trường.",

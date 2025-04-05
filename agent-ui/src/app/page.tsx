@@ -5,6 +5,8 @@ import { Suspense } from 'react'
 import  ChatbotSettings from '@/components/playground/ChatbotSettings'
 import { useBotInfo} from '@/store'
 import Sessions from '@/components/playground/Sidebar/Sessions'
+import { AgentList } from '@/components/playground/Sidebar/AgentList'
+
 import { usePlaygroundStore } from '@/store'
 
 export default function Home() {
@@ -26,11 +28,17 @@ export default function Home() {
             {/* Main Content */}
            
               {/* Conditional Sessions Component */}
+              <div className="flex flex-col left-2 max-w-[300px]">
+              <AgentList />
+                      {/* {selectedModel && agentId && (
+                        <ModelDisplay model={selectedModel} />
+                      )} */}
               {isMounted && isEndpointActive && (
-                <div className="relative left-2 max-w-[300px]">
+   
                   <Sessions />
-                </div>
+         
               )}
+              </div>
               {/* Chat Area */}
               <ChatArea />
               {/* Chatbot Settings */}
