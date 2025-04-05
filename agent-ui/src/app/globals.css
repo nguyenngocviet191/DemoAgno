@@ -4,12 +4,20 @@
 
 @layer base {
   :root {
-    --color-border-default: 255, 255, 255, 0.2;
+    --color-background: #ffffff;
+    --color-text: #000000;
+    --color-border-default: 0, 0, 0, 0.2;
     --scrollbar-width: 0.1rem;
   }
 
+  [data-theme='dark'] {
+    --color-background: #1a1a1a;
+    --color-text: #ffffff;
+    --color-border-default: 255, 255, 255, 0.2;
+  }
+
   body {
-    @apply bg-background/80 text-secondary;
+    @apply bg-[var(--color-background)] text-[var(--color-text)];
   }
 }
 
@@ -20,7 +28,7 @@
 ::-webkit-scrollbar-thumb {
   --tw-border-opacity: 1;
   @apply bg-border;
-  border-color: rgba(255, 255, 255, var(--tw-border-opacity));
+  border-color: rgba(var(--color-border-default));
   border-radius: 9999px;
   border-width: 1px;
 }

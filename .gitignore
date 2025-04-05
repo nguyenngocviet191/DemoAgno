@@ -1,5 +1,11 @@
 
 .venv/
+**/.venv/
 node_modules/
+**/node_modules/
 __pycache__/
 .env
+tmp/
+**/tmp/
+*.db
+**/*db

@@ -13,6 +13,7 @@ import { toast } from 'sonner'
 import { useQueryState } from 'nuqs'
 import { truncateText } from '@/lib/utils'
 import { Skeleton } from '@/components/ui/skeleton'
+import { useThemeStore } from '@/store/themeStore'; // Ensure this matches the export in themeStore
 const ENDPOINT_PLACEHOLDER = 'NO ENDPOINT ADDED'
 const SidebarHeader = () => (
   <div className="flex items-center gap-2">
@@ -51,8 +52,10 @@ const ModelDisplay = ({ model }: { model: string }) => (
 
 const Endpoint = () => {
   const {
+    isMounted,
     selectedEndpoint,
     isEndpointActive,
+    setIsMounted,
     setSelectedEndpoint,
     setAgents,
     setSessionsData,
@@ -61,7 +64,7 @@ const Endpoint = () => {
   const { initializePlayground } = useChatActions()
   const [isEditing, setIsEditing] = useState(false)
   const [endpointValue, setEndpointValue] = useState('')
-  const [isMounted, setIsMounted] = useState(false)
+  // const [isMounted, setIsMounted] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isRotating, setIsRotating] = useState(false)
   const [, setAgentId] = useQueryState('agent')
@@ -202,6 +205,8 @@ const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const { clearChat, focusChatInput, initializePlayground } = useChatActions()
   const {
+    isMounted,
+    setIsMounted,
     messages,
     selectedEndpoint,
     isEndpointActive,
@@ -209,10 +214,12 @@ const Sidebar = () => {
     hydrated,
     isEndpointLoading
   } = usePlaygroundStore()
-  const [isMounted, setIsMounted] = useState(false)
+  const { theme, toggleTheme } = useThemeStore();
+  // const [isMounted, setIsMounted] = useState(false)
   const [agentId] = useQueryState('agent')
   useEffect(() => {
     setIsMounted(true)
+    
     if (hydrated) initializePlayground()
   }, [selectedEndpoint, initializePlayground, hydrated])
   const handleNewChat = () => {
@@ -249,6 +256,13 @@ const Sidebar = () => {
         }}
       >
         <SidebarHeader />
+        <button
+          onClick={toggleTheme}
+          className="top-4 right-4 border p-2   rounded text-xs font-medium uppercase"
+        >
+          Toggle to {theme === 'light' ? 'Dark' : 'Light'} Mode
+        </button>
+
         <NewChatButton
           disabled={messages.length === 0}
           onClick={handleNewChat}
@@ -285,7 +299,7 @@ const Sidebar = () => {
                     </>
                   )}
                 </motion.div>
-                <Sessions />
+                {/* <Sessions /> */}
               </>
             )}
           </>

@@ -79,7 +79,7 @@ const ChatInput = () => {
       )}
 
       {/* Ô nhập tin nhắn và nút đính kèm */}
-      <div className="flex items-center rounded-full border border-gray-600 px-4 py-2">
+      <div className="flex items-center rounded-full border border-[rgba(var(--color-border-default))] px-4 py-2">
         {/* Nút đính kèm */}
         <button
           className="text-gray-100 hover:text-gray-700"

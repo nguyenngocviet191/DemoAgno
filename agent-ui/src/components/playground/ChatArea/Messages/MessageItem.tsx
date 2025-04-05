@@ -8,14 +8,19 @@ import Audios from './Multimedia/Audios'
 import { memo } from 'react'
 import AgentThinkingLoader from './AgentThinkingLoader'
 import { Reply, Copy } from 'lucide-react'
+import { useBotInfo} from '@/store'
+
+
 interface MessageProps {
   message: PlaygroundChatMessage
 }
 
+
 const AgentMessage = ({ message }: MessageProps) => {
   const { streamingErrorMessage } = usePlaygroundStore()
+  const open = useBotInfo((s) =>  s.open);
   let messageContent
-  console.log('message:', message)
+  // console.log('message:', message)
   if (message.streamingError) {
     messageContent = (
       <p className="text-destructive">
@@ -80,8 +85,9 @@ const AgentMessage = ({ message }: MessageProps) => {
 
   return (
     <div className="flex flex-row items-start gap-4 font-geist">
-      <div className="flex-shrink-0">
+      <div className="flex-shrink-0" onClick={ open}>
         <Icon type="agent" size="sm" />
+        
       </div>
       {messageContent}
     </div>
@@ -95,8 +101,9 @@ const UserMessage = memo(({ message }: MessageProps) => {
       <div className="flex flex-row gap-x-3">
         <p className="flex items-center gap-x-2 text-sm font-medium text-muted">
           <Icon type="user" size="sm" />
+          
         </p>
-        <div className="text-md rounded-lg py-1 font-geist text-secondary">
+        <div className="text-md rounded-lg py-1">
           {message.content}
         </div>
       </div>  

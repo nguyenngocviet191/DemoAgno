@@ -1,3 +1,4 @@
+"use client"; 
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -32,6 +33,8 @@ interface PlaygroundStore {
   ) => void
   isStreaming: boolean
   setIsStreaming: (isStreaming: boolean) => void
+  isMounted: boolean
+  setIsMounted: (isMounted: boolean) => void
   isEndpointActive: boolean
   setIsEndpointActive: (isActive: boolean) => void
   isEndpointLoading: boolean
@@ -71,6 +74,8 @@ export const usePlaygroundStore = create<PlaygroundStore>()(
         set(() => ({ streamingErrorMessage })),
       endpoints: [],
       setEndpoints: (endpoints) => set(() => ({ endpoints })),
+      isMounted: false,
+      setIsMounted: (isMounted) => set(() => ({ isMounted })),
       isStreaming: false,
       setIsStreaming: (isStreaming) => set(() => ({ isStreaming })),
       isEndpointActive: false,
@@ -119,3 +124,15 @@ export const usePlaygroundStore = create<PlaygroundStore>()(
     }
   )
 )
+
+interface BotInfoStore {
+  isOpen: boolean
+  open: () => void
+  close: () => void
+}
+
+export const useBotInfo = create<BotInfoStore>((set) => ({
+  isOpen: false,
+  open: () => set({ isOpen: true }),
+  close: () => set({ isOpen: false }),
+}))
