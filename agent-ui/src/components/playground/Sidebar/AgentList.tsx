@@ -48,15 +48,16 @@ export function AgentList() {
   }
 
   return (
-    <div className="w-full max-h-80 overflow-y-auto p-2 bg-primaryAccent rounded-lg shadow-lg">
-      <div className="text-xs font-medium uppercase text-primary">Select an Agent</div>
+    // <div className="w-full item-start max-h-80 overflow-y-auto p-2 bg-primaryAccent rounded-lg shadow-lg">
+    <div className="w-full item-start gap-2">
+      <div className="text-xs font-medium uppercase p-2">Agent</div>
       <div className="flex flex-col gap-2">
         {agents.map((agent) => (
           <div
             key={agent.value}
             onClick={() => handleOnClick(agent.value)}
-            className={`flex items-center gap-3 p-2 rounded-lg cursor-pointer 
-              ${agentId === agent.value ? 'bg-primary/10 text-primary font-medium' : 'hover:bg-primary/5'}`}
+            className={`flex items-center gap-3 p-2 rounded cursor-pointer 
+              ${agentId === agent.value ? 'bg-gray-600 text-primary font-medium' : 'hover:bg-gray-400'}`}
           >
             <Icon type={'agent'} size="xs" />
             <span className="text-sm font-medium">{agent.label}</span>

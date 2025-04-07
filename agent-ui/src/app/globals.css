@@ -4,12 +4,17 @@
 
 @layer base {
   :root {
-    --color-background: #ffffff;
+    --color-background: #fffffff1;
     --color-text: #000000;
     --color-border-default: 0, 0, 0, 0.2;
     --scrollbar-width: 0.1rem;
   }
 
+  [data-theme='light'] {
+    --color-background: #fffffff1;
+    --color-text: #000000;
+    --color-border-default: 0, 0, 0, 0.2;
+  }
   [data-theme='dark'] {
     --color-background: #1a1a1a;
     --color-text: #ffffff;

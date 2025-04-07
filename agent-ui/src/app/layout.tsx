@@ -5,7 +5,8 @@ import { NuqsAdapter } from 'nuqs/adapters/next/app'
 import { Toaster } from '@/components/ui/sonner'
 import './globals.css'
 import { useThemeStore } from '@/store/themeStore';
-
+import Sidebar from '@/components/playground/Sidebar/Sidebar'
+import Header from './Header'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   weight: '400',
@@ -33,10 +34,28 @@ export default function RootLayout({
 
   return (
     <html lang="en" data-theme={theme}>
-      <body className={`${geistSans.variable} ${dmMono.variable} antialiased`}>
-        <NuqsAdapter>{children}</NuqsAdapter>
-        <Toaster />
-      </body>
-    </html>
+    <body className={`${geistSans.variable} ${dmMono.variable} antialiased`}>
+      <NuqsAdapter>
+        {/* Cố định header */}
+        <div className="fixed top-0 left-0 w-full z-10">
+          <Header />
+        </div>
+
+        <div className="flex flex-row pt-16 h-screen w-full">
+          {/* Cố định sidebar */}
+          <div className="fixed left-0 top-16 h-full w-64 z-10">
+            <Sidebar />
+          </div>
+
+          {/* Nội dung chính có thể cuộn */}
+          <div className="fixed flex-1 ml-64 p-4">
+            {children}
+          </div>
+
+          <Toaster />
+        </div>
+      </NuqsAdapter>
+    </body>
+  </html>
   )
 }
