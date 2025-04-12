@@ -27,21 +27,21 @@ agent = Agent(
 )
 
 # -*- Share personal information
-agent.print_response("My name is john billings?", stream=True)
+agent.print_response("Tôi là Việt", stream=True)
 # -*- Print memories
 pprint(agent.memory.memories)
 # -*- Print summary
 pprint(agent.memory.summary)
 
 # -*- Share personal information
-agent.print_response("I live in nyc?", stream=True)
+agent.print_response("Tôi sống ở Hà nội", stream=True)
 # -*- Print memories
 pprint(agent.memory.memories)
 # -*- Print summary
 pprint(agent.memory.summary)
 
 # -*- Share personal information
-agent.print_response("I'm going to a concert tomorrow?", stream=True)
+agent.print_response("Tôi là developer", stream=True)
 # -*- Print memories
 pprint(agent.memory.memories)
 # -*- Print summary
@@ -49,5 +49,6 @@ pprint(agent.memory.summary)
 
 # Ask about the conversation
 agent.print_response(
-    "What have we been talking about, do you know my name?", stream=True
+    "Bạn có nhớ thông tin gì về tôi không", stream=True
 )
+pprint(agent.agent_id)
