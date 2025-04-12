@@ -52,3 +52,4 @@ agent.print_response(
     "Bạn có nhớ thông tin gì về tôi không", stream=True
 )
 pprint(agent.agent_id)
+# pprint(agent.memory
