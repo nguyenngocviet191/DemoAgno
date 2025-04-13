@@ -32,3 +32,4 @@ print (agent.tools)
 #     print(event.content,end="", flush=True)
 
 print(agent.memory.messages)
+agent.memory.agent_id = agent.agent_id
