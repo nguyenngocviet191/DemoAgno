@@ -17,8 +17,9 @@ cwd = Path(__file__).parent
 tmp_dir = cwd.joinpath("tmp")
 tmp_dir.mkdir(parents=True, exist_ok=True)
 
-agent_id = "b5398dae-a482-4a23-a717-6616c2f84fe8"
+# agent_id = "b5398dae-a482-4a23-a717-6616c2f84fe8"
 # agent_id = str(uuid.uuid4())
+agent_id="6450e752-5391-4561-b0ee-ba1217012b51"
 agent = Agent(
     model=OpenAIChat(id="gpt-4o"),
     # Store agent sessions in a database
@@ -44,9 +45,17 @@ agent = Agent(
 # res = agent.run("Tôi là ai")
 # print(res.content)
 # for m in agent.memory.messages:
+# agent.user_id = "user_1"
+# agent.memory.user_id = "user_1"
+# agent.update_memory("Tôi là Việt, sống ở Hà nội")
+# agent.user_id = "user_2"
+# agent.memory.user_id = "user_2"
+# agent.update_memory("Tôi là Mike ,sống ở New York")
 
-agent.update_memory("Tôi sống ở Hà nội")
-res = agent.memory.db.get_table()
-
-print(res)
+# agent.load_user_memories()
+# print(agent.memory.memories)
+agent.memory.user_id = "user_2"
+agent.load_user_memories()
+res = agent.run("Tôi là ai")
+print(res.content)
 # agent2.storage.u
