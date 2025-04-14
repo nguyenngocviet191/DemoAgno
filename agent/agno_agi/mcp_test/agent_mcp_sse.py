@@ -13,8 +13,8 @@ import logging
 # logging.basicConfig(level=logging.DEBUG)
 
 # agno.utils.log.debug_on = True
-# logging.getLogger("mcp_sse").setLevel(logging.DEBUG)  # Log chi tiết cho thư viện `agno`
-# logging.getLogger("server_mcp").setLevel(logging.DEBUG)  
+logging.getLogger("mcp_sse").setLevel(logging.DEBUG)  # Log chi tiết cho thư viện `agno`
+logging.getLogger("server_mcp").setLevel(logging.DEBUG)  
 add_path = os.path.abspath(os.path.join(os.path.dirname(__file__),".."))
 
 # add_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../extended"))
