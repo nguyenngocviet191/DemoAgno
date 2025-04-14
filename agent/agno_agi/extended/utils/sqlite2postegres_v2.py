@@ -93,22 +93,21 @@ def upload_to_postgres(sqlite_files, postgres_url):
     postgres_session.close()
     print("Upload completed.")
 # Download dữ liệu từ PostgreSQL về SQLite
-def download_to_sqlite(postgres_url, sqlite_path):
+def download_to_sqlite(postgres_url, agent_id):
     # Kết nối PostgreSQL
     postgres_engine = create_engine(postgres_url)
     Session = sessionmaker(bind=postgres_engine)
     postgres_session = Session()
-
-    # Kết nối SQLite
+    sqlite_path = agent_id + ".db"  # Đường dẫn đến file SQLite mới
+    # Nếu file SQLite chưa tồn tại, tạo file mới và kết nối
     sqlite_conn = sqlite3.connect(sqlite_path)
     sqlite_cursor = sqlite_conn.cursor()
 
     # Tạo bảng SQLite nếu chưa tồn tại
     sqlite_cursor.execute(f"""
-    CREATE TABLE IF NOT EXISTS {TABLE_NAME} (
+    CREATE TABLE IF NOT EXISTS {TABLE_NAME2} (
         id TEXT PRIMARY KEY,
         user_id TEXT,
-        agent_id TEXT,
         memory TEXT,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -116,14 +115,23 @@ def download_to_sqlite(postgres_url, sqlite_path):
     """)
 
     # Đọc dữ liệu từ PostgreSQL
-    result = postgres_session.execute(f"SELECT id, user_id, agent_id, memory, created_at, updated_at FROM {TABLE_NAME}")
+    query = text(f"""
+    SELECT memory_id AS id, user_id, memory, created_at, updated_at
+    FROM {TABLE_NAME}
+    WHERE agent_id = :agent_id
+    """)
+    result = postgres_session.execute(query, {"agent_id": agent_id})
     rows = result.fetchall()
+
+    # Lọc các dòng memory_id mà file SQLite chưa có
+    existing_ids = set(row[0] for row in sqlite_cursor.execute(f"SELECT id FROM {TABLE_NAME2}").fetchall())
+    rows = [row for row in rows if row[0] not in existing_ids]
 
     # Insert dữ liệu vào SQLite
     for row in rows:
         sqlite_cursor.execute(f"""
-        INSERT OR REPLACE INTO {TABLE_NAME} (id, user_id, agent_id, memory, created_at, updated_at)
-        VALUES (?, ?, ?, ?, ?, ?)
+        INSERT OR REPLACE INTO {TABLE_NAME2} (id, user_id, memory, created_at, updated_at)
+        VALUES (?, ?, ?, ?, ?)
         """, row)
 
     # Commit và đóng kết nối
@@ -135,8 +143,8 @@ def download_to_sqlite(postgres_url, sqlite_path):
 # Chạy chương trình
 if __name__ == "__main__":
     # Upload dữ liệu từ SQLite lên PostgreSQL
-    sqlite_files = [SQLITE_DB_PATH]  # Danh sách các file SQLite cần upload
-    upload_to_postgres(sqlite_files, POSTGRES_DB_URL)
-
+    # sqlite_files = [SQLITE_DB_PATH]  # Danh sách các file SQLite cần upload
+    # upload_to_postgres(sqlite_files, POSTGRES_DB_URL)
+   
     # Download dữ liệu từ PostgreSQL về SQLite
-    # download_to_sqlite(POSTGRES_DB_URL, SQLITE_DB_PATH)
+    download_to_sqlite(POSTGRES_DB_URL, "b5398dae-a482-4a23-a717-6616c2f84fe8")
